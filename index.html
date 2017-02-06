@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sample Circuit Breaker</title>
+</head>
+<body>
+
+<button id='serviceButton'>Fetch Service</button>
+
+  <script type='text/javascript' src="/opossum.js"></script> 
+  <script type='text/javascript' src="/jquery.js"></script> 
+
+  <script type="text/javascript">
+      
+      const route = 'http://localhost:3000/success'
+
+      const circuitBreakerOptions = {
+        timeout: 500,
+        maxFailures: 3,
+        resetTimeout: 5000
+      }
+
+      const circuit = circuitBreaker(() => $.get(route), circuitBreakerOptions);
+
+      circuit.fallback(() => `${route} unavailable right now. Try later.`))
+
+      circuit.on('success', (result) => $(element).append(JSON.stringify(result)}))
+
+      circuit.on('success', (result) => {
+        console.log(`SUCCESS: ${JSON.stringify(result)}`)
+      })
+ 
+      circuit.on('timeout', () => {
+        console.log(`TIMEOUT: ${route} is taking too long to respond.`)
+      })
+ 
+      circuit.on('reject', () => {
+        console.log(`REJECTED: The breaker for ${route} is open. Failing fast.`)
+      })
+ 
+      circuit.on('open', () => {
+        console.log(`OPEN: The breaker for ${route} just opened.`)
+      })
+ 
+      circuit.on('halfOpen', () => {
+        console.log(`HALF_OPEN: The breaker for ${route} is half open.`)
+      })
+ 
+      circuit.on('close', () => {
+        console.log(`CLOSE: The breaker for ${route} has closed. Service OK.`)
+      })
+ 
+      circuit.on('fallback', (data) => {
+        console.log(`FALLBACK: ${JSON.stringify(data)}`)
+      })
+
+      $(() => {
+        $('#serviceButton').click(() => circuit.fire().catch((e) => console.error(e)))
+      });
+
+  </script>
+
+</body>
+</html>

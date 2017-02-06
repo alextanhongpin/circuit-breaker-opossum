@@ -1,0 +1,24 @@
+{
+  "name": "circuit-breaker-opossum",
+  "version": "1.0.0",
+  "description": "Sample circuit breaker with opossum.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alextanhongpin/circuit-breaker-opossum.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alextanhongpin/circuit-breaker-opossum/issues"
+  },
+  "homepage": "https://github.com/alextanhongpin/circuit-breaker-opossum#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "jquery": "^3.1.1",
+    "opossum": "^0.5.0"
+  }
+}
